@@ -360,9 +360,6 @@ main section.content, article {
         content: "# ";
         color: $pcolour;
     }
-    .article-list article h2:before {
-        content: "" !important
-    }
     h3:before {
         content: "## ";
         color: $pcolour;
@@ -408,6 +405,10 @@ article.content {
         padding: 0 5%;
         text-align: left;
     }
+}
+
+.article-list article h2:before {
+    content: "" !important
 }
 
 section.content, article.content {
