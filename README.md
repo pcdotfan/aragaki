@@ -5,4 +5,4 @@
 
 # License
 
-「Aragaki」修改自 水八口 / Shuibaco 原创的 Bitcron 主题 「[Hello](https://github.com/shuibaco/bitcron-themes/tree/master/01%20hello)」，使用时前请阅读 [版权声明](https://github.com/shuibaco/bitcron-themes)
+「Aragaki」修改自 水八口 / Shuibaco 原创的 Bitcron 主题 「[Hello](https://github.com/shuibaco/bitcron-themes/tree/master/01%20hello)」，使用前请阅读 [版权声明](https://github.com/shuibaco/bitcron-themes)
