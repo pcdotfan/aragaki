@@ -1,0 +1,68 @@
+html
+    head
+    	+h.headers
+        +h.load("/template/style.scss")
+        link(href='//fonts.googleapis.com/css?family=Open Sans', rel='stylesheet')
+        link(href='//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet')
+        block title
+            title= site.title
+    
+    body
+        .wrapper
+            header
+                a.logo(href="/")
+                    img(src= site.site_avatar)
+                div.description
+                    h1= site.title
+                    h2= site.configs.sub_title
+                    nav
+                        +site.just_nav
+
+            block content
+
+        aside
+            .aside-left.sidebar
+                h3 最新文章
+                newest_posts = posts.get_recent(10)
+                ul: for post in newest_posts
+                    li
+                        a(href=post.url)= post.title
+                        span= "%s度" %(post.visits or 0)
+                .clear
+            .aside-right.sidebar
+                h3 分门别类
+                ul: for category in posts.categories
+                    li
+                        a(href=category.url)= category.title
+                        span= "%s篇" %category.posts_count
+                
+
+        footer
+            span= "© %s %s - " %(site.now.year, site.title)
+                a(href="/feed")= "%s posts crafted" %(d.get_data(types="post", return_count=true, with_page=false))
+            span= "♥ " 
+                a(href="https://blog.shuiba.co/bitcron-theme-hello") Hello
+            .powered_by
+                span Proudly published with
+                a(href="https://bitcron.com", target="_blank") Bitcron
+            .footer_slogan
+                img(src="/template/svg/slogan.svg")
+
+    +h.back_to_top(label="△")
+
+    script
+        /* smooth scrolling */
+        $(function() {
+          $('a[href*=#]:not([href=#])').click(function() {
+            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+              var target = $(this.hash);
+              target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+              if (target.length) {
+                $('html,body').animate({
+                  scrollTop: target.offset().top
+                }, 500);
+                return false;
+              }
+            }
+          });
+        });

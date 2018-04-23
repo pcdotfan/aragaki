@@ -1,0 +1,21 @@
+extends index
+
+block title
+	title= request.args.s + " 的搜索结果 - " + site.title
+
+block content
+	main
+		section.content
+			h1= "包含 " + request.args.s + " 关键字的文章"
+			.meta= "共搜索到%s篇文章" %(d.get_data(types="post", keywords=request.args.s, return_count=true, with_page=false))
+
+			search_posts = posts.search(keywords=request.args.s, limit=30)
+			ul: for post in search_posts: li
+				time(datetime= post.date.format("%Y-%m-%d"))= post.date.format("%Y.%m.%d")
+		        a(href=post.url)= post.title
+		        if post.category
+					span= post.category.title
+                span= "%s度" %(post.visits or 0)
+
+		section.pager
+			+h.paginator(style="auto")

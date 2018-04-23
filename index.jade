@@ -1,0 +1,35 @@
+extends base
+
+block content
+    main
+        section.article-list: for post in posts
+            article
+                h2
+                    a(href=post.url)= post.title
+                    span= "%s度" %(post.visits or 0)
+                .excerpt
+                    p= post.content.limit(150).no_pic.plain
+                .meta
+                    span.item
+                        i.fa.fa-calendar-o
+                        time(datetime= post.date.format("%Y-%m-%d"))= post.date.format("%Y.%m.%d")
+                    if post.category
+                        span.item
+                            i.fa.fa-code
+                            a(href=post.category.url)= post.category.title
+                    span.item
+                        i.fa.fa-battery-three-quarters
+                        span= "%s度" %(post.visits or 0)
+                    span.item
+                        i.fa.fa-comment-o
+                        a(href="{{post.url}}#comments")= "%s评" %(post.comments_count or 0)
+        section.list-pager
+            if paginator.has_previous
+                a.pre(href=paginator.pre_url)
+                    i.fa.fa-angle-left
+                    | 上一页
+            if paginator.has_next
+                a.next(href=paginator.next_url)
+                    | 下一页
+                    i.fa.fa-angle-right
+            div.clear

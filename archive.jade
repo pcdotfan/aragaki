@@ -1,0 +1,28 @@
+extends index
+
+block title
+	title= "文章归档 - " + site.title
+
+block content
+	main
+		section.content
+			h1 文章归档
+			.meta= "本博客共有%s篇文章" %(d.get_data(types="post", return_count=true, with_page=false))
+
+			entries = d.get_data(types="post", limit=30, sort="desc").group("-date:year")
+			for year, year_posts in entries
+		        h2= year
+			        year_start_date = "%s-1-1" %year
+			        year_end_date = "%s-1-1" %(year.int+1)
+			        yearly_count = d.get_data(type="post", return_count=true, date_start=year_start_date, date_end=year_end_date)
+			        span= "%s篇" %yearly_count
+
+			    ul.archived-posts: for post in year_posts: li
+			        time(datetime= post.date.format("%Y-%m-%d"))= post.date.format("%m.%d")
+			        a(href=post.url)= post.title
+			        if post.category
+						span= post.category.title
+	                span= "%s度" %(post.visits or 0)
+
+		section.pager
+			+h.paginator(style="auto")

@@ -1,0 +1,21 @@
+extends index
+
+block title
+	title= posts.category.title + " - " + site.title
+
+block content
+	+posts.set_min_per_page(30)
+
+	main
+		section.content
+			h1= posts.category.title
+			.meta= "此类别下共有%s篇文章" %(d.get_data(types="post", path=posts.category.filename, return_count=true, with_page=false))
+			.info
+				posts.category.content
+			ul: for post in posts: li
+				time(datetime= post.date.format("%Y-%m-%d"))= post.date.format("%Y.%m.%d")
+				a(href=post.url)= post.title
+				span= "%s度" %(post.visits or 0)
+
+		section.pager
+			+h.paginator(style="auto")
